@@ -39,7 +39,7 @@ export default defineConfig({
   webServer: {
     command: 'npx nx run consumer-test-app:serve --open=false',
     url: 'http://localhost:4200',
-    reuseExistingServer: true,
+    reuseExistingServer: !process.env['CI'],
     cwd: workspaceRoot,
   },
   projects: [
