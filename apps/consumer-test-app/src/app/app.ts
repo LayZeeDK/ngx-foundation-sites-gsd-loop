@@ -7,6 +7,4 @@ import { NxWelcome } from './nx-welcome';
   selector: 'app-root',
   templateUrl: './app.html',
 })
-export class App {
-  protected title = 'consumer-test-app';
-}
+export class App {}
