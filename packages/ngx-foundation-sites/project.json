@@ -1,0 +1,65 @@
+{
+  "name": "ngx-foundation-sites",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/ngx-foundation-sites/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "manifestRootsToUpdate": ["dist/{projectRoot}"],
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk"
+    }
+  },
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "project": "packages/ngx-foundation-sites/ng-package.json",
+        "tsConfig": "packages/ngx-foundation-sites/tsconfig.lib.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/ngx-foundation-sites/tsconfig.lib.prod.json"
+        },
+        "development": {}
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "browserTarget": "consumer-test-app:build:development",
+        "configDir": "packages/ngx-foundation-sites/.storybook",
+        "tsConfig": "packages/ngx-foundation-sites/.storybook/tsconfig.json",
+        "compodoc": false
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{projectRoot}/storybook-static"],
+      "options": {
+        "configDir": "packages/ngx-foundation-sites/.storybook",
+        "tsConfig": "packages/ngx-foundation-sites/.storybook/tsconfig.json",
+        "outputDir": "packages/ngx-foundation-sites/storybook-static",
+        "compodoc": false
+      }
+    }
+  }
+}

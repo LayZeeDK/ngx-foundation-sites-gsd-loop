@@ -11,3 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: grep -q "MIT License" LICENSE
+
+  build-and-test:
+    # Playwright officially supports Ubuntu 24.04 on arm64 for Chromium,
+    # Firefox, and WebKit (https://playwright.dev/docs/browsers), so this
+    # stays on the same arm64 runner as license-check with no fallback needed.
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npx nx run-many -t lint test build build-storybook e2e
