@@ -55,6 +55,7 @@
       "executor": "@storybook/angular:build-storybook",
       "outputs": ["{projectRoot}/storybook-static"],
       "options": {
+        "browserTarget": "consumer-test-app:build:development",
         "configDir": "packages/ngx-foundation-sites/.storybook",
         "tsConfig": "packages/ngx-foundation-sites/.storybook/tsconfig.json",
         "outputDir": "packages/ngx-foundation-sites/storybook-static",
