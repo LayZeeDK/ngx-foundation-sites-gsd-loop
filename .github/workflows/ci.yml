@@ -27,3 +27,17 @@ jobs:
       - run: npx playwright install --with-deps
       - run: npx nx format:check
       - run: npx nx run-many -t lint test build build-storybook e2e
+      - name: Start Storybook static server
+        id: storybook-server
+        run: npx nx run ngx-foundation-sites:static-storybook --port=4400
+        background: true
+      - name: Wait for Storybook static server
+        run: |
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:4400 > /dev/null && break
+            sleep 1
+          done
+      - run: npx nx run ngx-foundation-sites:test-storybook -- --url http://localhost:4400 --ci
+      - name: Stop Storybook static server
+        if: always()
+        cancel: storybook-server
