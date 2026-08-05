@@ -513,7 +513,7 @@ import { CommonModule } from '@angular/common';
         <div id="welcome">
           <h1>
             <span> Hello there, </span>
-            Welcome consumer-test-app 👋
+            Welcome consumer-test-app
           </h1>
         </div>
         <!--  HERO  -->
