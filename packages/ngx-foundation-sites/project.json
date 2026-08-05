@@ -2,7 +2,7 @@
   "name": "ngx-foundation-sites",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/ngx-foundation-sites/src",
-  "prefix": "lib",
+  "prefix": "nfs",
   "projectType": "library",
   "release": {
     "version": {

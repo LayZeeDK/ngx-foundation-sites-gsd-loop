@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-ngx-foundation-sites',
+  selector: 'nfs-ngx-foundation-sites',
   imports: [],
   templateUrl: './ngx-foundation-sites.html',
 })
