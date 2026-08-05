@@ -32,10 +32,10 @@ export default defineConfig({
   /* Run your local dev server before starting the tests. The trailing
    * `--open=false` is not just cosmetic (skip auto-opening a browser): it
    * also keeps this command from matching @nx/playwright's `nx run
-   * <project>:<target>` dependsOn-inference regex. Without it, Nx adds
-   * `consumer-test-app:serve` as both a task dependency AND the command
-   * this webServer block runs, and on a cold start (port not warm yet) the
-   * two race and Nx aborts with "recursive task invocation detected". */
+   * <project>:<target>` dependsOn-inference regex. Without it, Nx would
+   * also infer `consumer-test-app:serve` as a task dependency of `e2e`,
+   * so the same serve command would be wired in twice -- once as an
+   * inferred dependency, once as this webServer's own command. */
   webServer: {
     command: 'npx nx run consumer-test-app:serve --open=false',
     url: 'http://localhost:4200',
