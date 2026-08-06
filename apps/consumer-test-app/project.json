@@ -1,0 +1,86 @@
+{
+  "name": "consumer-test-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/consumer-test-app/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/consumer-test-app",
+        "browser": "apps/consumer-test-app/src/main.ts",
+        "tsConfig": "apps/consumer-test-app/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/consumer-test-app/public"
+          }
+        ],
+        "styles": ["apps/consumer-test-app/src/styles.css"],
+        "server": "apps/consumer-test-app/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/consumer-test-app/src/server.ts"
+        },
+        "outputMode": "server"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "configurations": {
+        "production": {
+          "buildTarget": "consumer-test-app:build:production"
+        },
+        "development": {
+          "buildTarget": "consumer-test-app:build:development"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "consumer-test-app:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/consumer-test-app/browser",
+        "spa": true
+      }
+    }
+  }
+}
